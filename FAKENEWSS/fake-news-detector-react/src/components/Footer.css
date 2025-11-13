@@ -1,0 +1,28 @@
+footer {
+    background-color: var(--footer-bg);
+    color: var(--text-color);
+    padding: 20px 50px;
+    text-align: center;
+    margin-top: 50px; /* Espace au-dessus du footer */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer-links a {
+    color: var(--footer-link-color);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+    transition: color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.footer-links a:hover {
+    color: #f39c12; /* Orange au survol */
+}

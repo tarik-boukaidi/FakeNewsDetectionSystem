@@ -1,0 +1,67 @@
+@keyframes zoomIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.7); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.features-section {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 50px;
+    background-color: transparent; /* Changer en transparent pour laisser voir l'image de fond globale */
+    color: var(--text-color);
+    align-items: stretch; /* Ajouté pour que les cartes aient la même hauteur */
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.4s ease-out, transform 0.4s ease-out, box-shadow 0.4s ease-out; /* Garder la transition pour le survol */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    animation: zoomIn 1s ease-out forwards; /* Animation d'apparition plus dynamique */
+    opacity: 0; /* Assurez-vous qu'ils sont cachés au début */
+}
+
+.feature-card:hover {
+    transform: translateY(-25px) scale(1.1); /* Effet de survol encore plus prononcé */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); /* Ombre portée plus intense */
+}
+
+/* Délai pour les cartes individuelles */
+.features-section .feature-card:nth-child(1) { animation-delay: 0.3s; }
+.features-section .feature-card:nth-child(2) { animation-delay: 0.4s; }
+
+.icon-wrapper {
+    background-color: #f39c12; /* Orange */
+    border-radius: 50%;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+}
+
+.feature-icon {
+    color: white;
+    font-size: 40px;
+}
+
+.feature-card h2 {
+    color: #f39c12; /* Orange */
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.feature-card p {
+    font-size: 16px;
+    line-height: 1.5;
+}

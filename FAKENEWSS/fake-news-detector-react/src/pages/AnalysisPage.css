@@ -1,0 +1,142 @@
+.analysis-page {
+    padding: 20px 50px;
+    /* background-color: var(--background-color); */ /* Commenté pour permettre l'image de fond globale */
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.analysis-page h1 {
+    color: #f39c12;
+    margin-bottom: 40px;
+}
+
+.analysis-section,
+.result-section,
+.history-section {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 900px;
+    margin-bottom: 30px;
+    transition: background-color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.analysis-section textarea {
+    width: calc(100% - 20px);
+    height: 150px;
+    padding: 10px;
+    border: 1px solid var(--textarea-border);
+    border-radius: 5px;
+    background-color: var(--textarea-bg);
+    color: var(--text-color);
+    resize: vertical;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.analysis-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.analysis-buttons button {
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.analysis-buttons button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.analysis-buttons .reset-button {
+    background-color: var(--button-reset-bg); /* Rouge pour réinitialiser */
+}
+
+.analysis-buttons .reset-button:hover {
+    background-color: var(--button-reset-hover-bg);
+}
+
+.analysis-buttons .back-button {
+    background-color: var(--button-back-bg); /* Gris pour retour */
+}
+
+.analysis-buttons .back-button:hover {
+    background-color: var(--button-back-hover-bg);
+}
+
+.result-section h2 {
+    color: #f39c12;
+    margin-bottom: 15px;
+}
+
+.progress-bar-container {
+    background-color: var(--progress-bar-bg);
+    border-radius: 5px;
+    height: 20px;
+    margin: 10px 0;
+    overflow: hidden;
+    transition: background-color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.progress-bar {
+    background-color: var(--progress-fill-bg); /* Vert pour le succès */
+    height: 100%;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    line-height: 20px;
+}
+
+.history-section h2 {
+    color: #f39c12;
+    margin-bottom: 15px;
+}
+
+.filters {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.filters label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filters select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--textarea-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.history-item {
+    background-color: var(--history-item-bg);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    transition: background-color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.history-item p {
+    margin: 5px 0;
+    font-size: 14px;
+}

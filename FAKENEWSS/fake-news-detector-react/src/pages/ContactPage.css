@@ -1,0 +1,47 @@
+.contact-page {
+    padding: 20px 50px;
+    /* background-color: var(--background-color); */ /* Commenté pour permettre l'image de fond globale */
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.contact-page h1 {
+    color: #f39c12;
+    margin-bottom: 40px;
+}
+
+.contact-section {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 900px;
+    margin-bottom: 30px;
+    text-align: center;
+    transition: background-color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.contact-section h2 {
+    color: #f39c12;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.contact-section p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.contact-section a {
+    color: #f39c12;
+    text-decoration: none;
+    transition: color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}

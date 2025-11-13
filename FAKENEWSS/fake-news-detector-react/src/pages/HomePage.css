@@ -1,0 +1,13 @@
+.homepage {
+    /* Styles généraux pour la mise en page générale de la page d'accueil si nécessaire */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* S'assurer que la page prend au moins toute la hauteur de la vue */
+    /* background-color: var(--background-color); */ /* Commenté pour permettre l'image de fond globale */
+    color: var(--text-color); /* Utilisation de la variable de thème */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour les changements de thème */
+}
+
+.homepage main {
+    flex-grow: 1; /* Permettre au contenu principal de prendre l'espace restant */
+}
