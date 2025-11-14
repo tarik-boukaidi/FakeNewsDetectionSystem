@@ -1,0 +1,66 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.hero {
+    text-align: center;
+    /* background-color: var(--card-bg); */ /* Commenté pour permettre l'image de fond globale */
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    /* background-size: cover; */ /* Retiré car l'image de fond globale est gérée par le body */
+    /* background-position: center; */ /* Retiré car l'image de fond globale est gérée par le body */
+    color: var(--text-color); /* Assurez-vous que le texte reste lisible sur l'image */
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #f0f2f5;
+}
+
+.hero .highlight {
+    color: #f39c12; /* Orange */
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color :#f0f2f5;
+}
+
+.start-analysis {
+    background-color: var(--button-hover-bg); /* Orange plus foncé */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.start-analysis:hover {
+    background-color: #d35400; /* Orange encore plus foncé au survol */
+}
+
+@media (max-width: 600px) {
+    .catching-text{
+        display: none;
+    }
+    .hero {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding : 30px;
+    }
+    .hero h1 {
+        margin-bottom: 50px;
+    }
+
+}

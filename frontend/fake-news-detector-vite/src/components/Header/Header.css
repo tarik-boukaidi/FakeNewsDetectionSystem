@@ -1,0 +1,114 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: var(--header-bg);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo-image {
+    height: 80px; /* Ajustez la taille selon vos besoins */
+    margin-right: 10px;
+}
+
+.logo .fake {
+    color: #f39c12; /* Orange */
+}
+
+.logo .news {
+    color: var(--logo-news-color); /* Blanc */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--nav-link-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li a:hover {
+    color: #f39c12; /* Orange au survol */
+}
+.back-container{
+    position: relative;
+    left: -200px;
+}
+.back-container .nav-icon{
+        background-color: #f39c12;
+    padding: 10px;
+    border-radius: 50%;
+}
+.back-container .nav-icon:hover{
+    color: #f39c12;
+    background-color: #eee;
+    transition-duration: 0.5s;
+    transition-property: background-color color;
+}
+.nav-button {
+    background: none;
+    border: none;
+    color: var(--nav-link-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px; /* Ajustez selon les autres liens de navigation */
+    padding: 0; /* Supprimez le padding par défaut du bouton */
+}
+
+.nav-button:hover {
+    color: #f39c12; /* Orange au survol */
+}
+
+.nav-icon {
+    margin-right: 8px; /* Espace entre l'icône et le texte */
+    font-size: 18px;
+    vertical-align: middle; /* Alignement vertical au milieu */
+}
+
+.mode-toggle {
+    background-color: var(--button-bg); /* Orange */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espace entre l'icône et le texte du bouton */
+    transition: background-color 0.3s ease; /* Transition pour le bouton de mode */
+}
+
+.mode-toggle:hover {
+    background-color: var(--button-hover-bg);
+}
+
+
+@media (max-width : 600px) {
+    .fake,
+    .news,
+    .icon-text{
+        display: none;
+    }
+
+}

@@ -1,0 +1,109 @@
+:root {
+  --background-color-light: #f0f2f5;
+  --text-color-light: #333;
+  --header-bg-light: #ffffff;
+  --card-bg-light: #ffffff;
+  --button-bg-light: #f39c12;
+  --button-hover-bg-light: #e67e22;
+  --button-reset-bg-light: #e74c3c;
+  --button-reset-hover-bg-light: #c0392b;
+  --button-back-bg-light: #95a5a6;
+  --button-back-hover-bg-light: #7f8c8d;
+  --border-color-light: #ccc;
+  --progress-bar-bg-light: #555;
+  --progress-fill-bg-light: #2ecc71;
+  --history-item-bg-light: #f9f9f9;
+  --textarea-bg-light: #f0f0f0;
+  --textarea-border-light: #ccc;
+  --logo-news-color-light: #333;
+  --nav-link-color-light: #333;
+  --footer-bg-light: #ffffff;
+  --footer-link-color-light: #333;
+}
+
+html[data-theme="dark"] {
+  --background-color: #282c36;
+  --text-color: #f0f0f0;
+  --header-bg: #363a45;
+  --card-bg: #363a45;
+  --button-bg: #f39c12;
+  --button-hover-bg: #e67e22;
+  --button-reset-bg: #e74c3c;
+  --button-reset-hover-bg: #c0392b;
+  --button-back-bg: #95a5a6;
+  --button-back-hover-bg: #7f8c8d;
+  --border-color: #555;
+  --progress-bar-bg: #555;
+  --progress-fill-bg: #2ecc71;
+  --history-item-bg: #2a2d36;
+  --textarea-bg: #2a2d36;
+  --textarea-border: #555;
+  --logo-news-color: #f0f0f0;
+  --nav-link-color: #f0f0f0;
+  --footer-bg: #363a45;
+  --footer-link-color: #f0f0f0;
+}
+
+html[data-theme="light"] {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --header-bg: var(--header-bg-light);
+  --card-bg: var(--card-bg-light);
+  --button-bg: var(--button-bg-light);
+  --button-hover-bg: var(--button-hover-bg-light);
+  --button-reset-bg: var(--button-reset-bg-light);
+  --button-reset-hover-bg: var(--button-reset-hover-bg-light);
+  --button-back-bg: var(--button-back-bg-light);
+  --button-back-hover-bg: var(--button-back-hover-bg-light);
+  --border-color: var(--border-color-light);
+  --progress-bar-bg: var(--progress-bar-bg-light);
+  --progress-fill-bg: var(--progress-fill-bg-light);
+  --history-item-bg: var(--history-item-bg-light);
+  --textarea-bg: var(--textarea-bg-light);
+  --textarea-border: var(--textarea-border-light);
+  --logo-news-color: var(--logo-news-color-light);
+  --nav-link-color: var(--nav-link-color-light);
+  --footer-bg: var(--footer-bg-light);
+  --footer-link-color: var(--footer-link-color-light);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    /* background-color: var(--background-color); */ /* Commenté pour permettre l'image de fond */
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour les changements de thème */
+    background-image: var(--global-background-image); /* Image de fond globale */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.app {
+    /* Styles généraux pour l'application React */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent; /* Changer en transparent pour laisser voir l'image de fond globale */
+    width: 1200px;
+    min-height: 100vh;
+}
+
+
+/* Affichage Large  */
+/* Large screens */
+@media (min-width: 1200px) { 
+  .app{
+    width: 1920px;
+  }
+}
+
+/* Affichage par telephone  */
+/* Phones */
+@media (max-width: 600px) {
+  .app{
+    width: 600px;
+  }
+}
+
