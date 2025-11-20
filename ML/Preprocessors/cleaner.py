@@ -69,6 +69,9 @@ class Cleaner:
     def to_df(self,text):
         return pd.DataFrame([text],columns=[self.feature_name])
     
+    def remove_u(self,tokens):
+        return [word.strip() for word in tokens if word.strip() != 'u']
+    
 
     def transform(self,text):
         text = self.remove_garbage(text)
@@ -76,6 +79,7 @@ class Cleaner:
         tokens =self.tokenize(text)
         tokens = self.remove_stopwords(tokens)
         tokens = self.lemmatize(tokens)
+        tokens = self.remove_u(tokens)
         text = self.join_token(tokens)
         df = self.to_df(text)
         return df
