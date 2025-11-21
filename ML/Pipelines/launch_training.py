@@ -1,5 +1,5 @@
 import os 
-from sagemaker.sklearn import SKLearn
+from sagemaker.sklearn.estimator import SKLearn
 from sagemaker.inputs import TrainingInput
 from sagemaker import Session
 from dotenv import load_dotenv
