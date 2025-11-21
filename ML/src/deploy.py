@@ -4,19 +4,16 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
+# load the env variables 
 role = os.getenv('ROLE_ARN')
-
-
 endpoint = os.getenv('SAGEMAKER_ENDPOINT')
-# Path to your trained model in S3
 s3_model_path = os.path.join(os.getenv('MODEL_OUTPUT'),'model.joblib')
 source_dir = "ML"  
 
 # Create a SageMaker session
 session = sagemaker.Session()
 
-# Create the SageMaker SKLearnModel
+# Create the KLearnModel
 sk_model = SKLearnModel(
     model_data=s3_model_path,
     role=role,
