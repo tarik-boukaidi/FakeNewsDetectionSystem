@@ -1,0 +1,16 @@
+{
+  "tfidf": {
+    "max_features": 5000,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "stop_words": "english"
+  },
+  "rf": {
+    "n_estimators": 200,
+    "max_depth": 30,
+    "class_weight": "balanced_subsample",
+    "max_features": "sqrt"
+  }
+}
