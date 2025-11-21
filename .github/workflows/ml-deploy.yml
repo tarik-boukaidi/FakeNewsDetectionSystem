@@ -10,7 +10,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   MODEL_OUTPUT: ${{ secrets.MODEL_OUTPUT }}
   ROLE_ARN: ${{ secrets.ROLE_ARN }}
-  REGION_NAME: ${{ secrets.REGION_NAME }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
   SAGEMAKER_ENDPOINT: ${{ secrets.SAGEMAKER_ENDPOINT }}
 
 

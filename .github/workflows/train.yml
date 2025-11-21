@@ -11,7 +11,7 @@ env:
   TRAINING_CONFIG: ${{ secrets.TRAINING_CONFIG }}
   MODEL_OUTPUT: ${{ secrets.MODEL_OUTPUT }}
   ROLE_ARN: ${{ secrets.ROLE_ARN }}
-  REGION_NAME: ${{ secrets.REGION_NAME }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
   SAGEMAKER_ENDPOINT: ${{ secrets.SAGEMAKER_ENDPOINT }}
 
 jobs:
