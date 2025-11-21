@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install sagemaker pandas scikit-learn joblib contractions nltk
+          pip install --upgrade "sagemaker>=2.0.0,<3.0.0" pandas scikit-learn joblib contractions nltk
 
       - name: Deploy model
         run: |

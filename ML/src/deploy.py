@@ -13,6 +13,9 @@ endpoint = os.getenv('SAGEMAKER_ENDPOINT')
 s3_model_path = os.path.join(os.environ('MODEL_OUTPUT'),'model.joblib')
 source_dir = "ML"  
 
+# Create a SageMaker session
+session = sagemaker.Session()
+
 # Create the SageMaker SKLearnModel
 sk_model = SKLearnModel(
     model_data=s3_model_path,
