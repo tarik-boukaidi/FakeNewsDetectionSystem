@@ -28,8 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install --upgrade "sagemaker>=2.0.0,<3.0.0" pandas scikit-learn joblib
+          pip install sagemaker pandas scikit-learn joblib
 
       - name: Run SageMaker training
         run: |
