@@ -10,7 +10,7 @@ role = os.getenv('ROLE_ARN')
 region = os.getenv('REGION_NAME')
 endpoint = os.getenv('SAGEMAKER_ENDPOINT')
 # Path to your trained model in S3
-s3_model_path = os.path.join(os.environ('MODEL_OUTPUT'),'model.joblib')
+s3_model_path = os.path.join(os.getenv('MODEL_OUTPUT'),'model.joblib')
 source_dir = "ML"  
 
 # Create a SageMaker session

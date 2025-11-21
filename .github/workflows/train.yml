@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install "sagemaker>=2.0.0,<3.0.0" pandas scikit-learn joblib
+          pip install "sagemaker>=2.0.0,<3.0.0" pandas scikit-learn joblib dotenv
 
       - name: Run SageMaker training
         run: |
