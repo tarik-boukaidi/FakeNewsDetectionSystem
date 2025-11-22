@@ -22,7 +22,7 @@ sk_model = SKLearnModel(
     source_dir=source_dir,
     framework_version="1.2-1",
     py_version="py3",
-    dependencies=['requirements.txt']
+    dependencies=[os.path.join(source_dir,'requirements.txt')]
 )
 # Set the serverless config 
 serverless_config  = ServerlessInferenceConfig(
