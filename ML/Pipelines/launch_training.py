@@ -12,7 +12,7 @@ REGION = os.getenv('AWS_DEFAULT_REGION')
 # Print the Region 
 print("Region : ",REGION)
 # Allow the cheapest instance otherwise use the affordable and compatible one 
-instance = 'ml.t2.medium' if REGION == "us-east-1" else 'ml.t2.medium'
+instance = 'ml.m5.large'
 # Define the traning job
 estimator = SKLearn(
     entry_point="src/train.py",         
