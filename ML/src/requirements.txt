@@ -2,6 +2,6 @@ nltk
 contractions
 pandas
 numpy
-sickit-learn
+scikit-learn
 joblib
-dotenv
+python-dotenv
