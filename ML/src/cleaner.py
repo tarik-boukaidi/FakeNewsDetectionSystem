@@ -5,7 +5,7 @@ from nltk.data import path as npath
 from nltk.stem import WordNetLemmatizer
 import pandas as pd
 import re
-
+import os 
 
 class Cleaner:
     """
@@ -14,6 +14,9 @@ class Cleaner:
     def __init__(self,language:str="english",feature_name:str='joined_tokens',nltk_path='nltk_data'):
         # Download local dependecies
         npath.append(nltk_path)
+        print("NLTK paths:", npath)
+        print("Stopwords files exist?", os.path.exists(os.path.join(npath[-1], "corpora/stopwords")))
+
         # set the stopwords 
         self.stopwords = set(stopwords.words(language))
         self.lemmatizer = WordNetLemmatizer()
