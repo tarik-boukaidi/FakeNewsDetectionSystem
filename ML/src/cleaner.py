@@ -11,7 +11,7 @@ class Cleaner:
     """
     A well documentation will be given later 
     """
-    def __init__(self,language:str="english",feature_name:str='joined_tokens',nltk_path='ML/src/nltk_data'):
+    def __init__(self,language:str="english",feature_name:str='joined_tokens',nltk_path='nltk_data'):
         # Download local dependecies
         npath.append(nltk_path)
         # set the stopwords 
