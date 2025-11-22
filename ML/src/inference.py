@@ -4,8 +4,6 @@ import json
 import pandas as pd
 import sys
 
-# Add the Preprocessor folder to the Python path
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", "Preprocessor"))
 
 from cleaner import Cleaner  
 
