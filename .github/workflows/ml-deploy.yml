@@ -32,4 +32,6 @@ jobs:
 
       - name: Deploy model
         run: |
+          echo "----- LIST ML/src -----"
+          ls -R ML/src
           python ML/src/deploy.py
