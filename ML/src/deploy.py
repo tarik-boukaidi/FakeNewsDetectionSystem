@@ -26,7 +26,7 @@ sk_model = SKLearnModel(
 # Deploy the model
 predictor = sk_model.deploy(
     initial_instance_count=1,
-    instance_type="ml.t3.medium",  
+    instance_type="ml.t2.medium",  
     endpoint_name=endpoint
 )
 
