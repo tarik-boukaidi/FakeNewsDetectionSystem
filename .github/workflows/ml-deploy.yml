@@ -32,4 +32,5 @@ jobs:
 
       - name: Deploy model
         run: |
+          export PYTHONPATH="$PWD/ML/src:$PYTHONPATH"
           python ML/src/deploy.py
