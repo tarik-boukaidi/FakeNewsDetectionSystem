@@ -1,8 +1,7 @@
 import contractions as ctr
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords,wordnet
-from nltk.data import find
-from nltk import download
+from nltk.data import path as npath
 from nltk.stem import WordNetLemmatizer
 import pandas as pd
 import re
@@ -12,14 +11,9 @@ class Cleaner:
     """
     A well documentation will be given later 
     """
-    def __init__(self,language:str="english",feature_name:str='joined_tokens'):
-        # Check if stop word corpus is downloaded
-        for resource in ['wordnet', 'omw-1.4','stopwords']:
-            try:
-                find(f'corpora/{resource}')
-            except LookupError:
-                download(resource)
-
+    def __init__(self,language:str="english",feature_name:str='joined_tokens',nltk_path='ML/src/nltk_data'):
+        # Download local dependecies
+        npath.append(nltk_path)
         # set the stopwords 
         self.stopwords = set(stopwords.words(language))
         self.lemmatizer = WordNetLemmatizer()
