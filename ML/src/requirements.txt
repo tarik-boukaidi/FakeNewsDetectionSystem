@@ -1,0 +1,7 @@
+nltk
+contractions
+pandas
+numpy
+sickit-learn
+joblib
+dotenv
