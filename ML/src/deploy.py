@@ -8,7 +8,8 @@ load_dotenv()
 # load the env variables 
 role = os.getenv('ROLE_ARN')
 endpoint = os.getenv('SAGEMAKER_ENDPOINT')
-s3_model_path = os.path.join(os.getenv('MODEL_OUTPUT'),'pipeline_model.joblib')
+MODEL = os.getenv('MODEL_NAME')
+s3_model_path = os.path.join(os.getenv('MODEL_OUTPUT'),MODEL)
 source_dir = "ML"  
 
 # Create a SageMaker session
