@@ -26,7 +26,7 @@ sk_model = SKLearnModel(
 )
 # Set the serverless config 
 serverless_config  = ServerlessInferenceConfig(
-        memory_size_in_mb=2048,
+        memory_size_in_mb=4096,
         max_concurrency=5
     )
 # Deploy serverless endpoint
