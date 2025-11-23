@@ -13,7 +13,6 @@ env:
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
   MODEL_NAME: ${{ secrets.MODEL_NAME }}
   SAGEMAKER_ENDPOINT: ${{ secrets.SAGEMAKER_ENDPOINT }}
-  IMAGE_URI: ${{ env.IMAGE_URI }}
 
 jobs:
   deploy-job:
@@ -72,3 +71,5 @@ jobs:
         run: |
           echo "Using IMAGE_URI=$IMAGE_URI"
           python ML/src/deploy.py
+        env :
+          IMAGE_URI: ${{ env.IMAGE_URI }}
