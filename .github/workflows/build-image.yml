@@ -39,9 +39,10 @@ jobs:
           # Set environment variable for this w
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
-      - name : Save the image url artifact 
+      - name : Save the IMAGE_URI to JSON  
         run :
           echo "{\"image_uri\":\"$IMAGE_URI\"}" >> image.json
+      - name : Save the file to an arttifact
         uses : actions/upload-artifact@v4
         with : 
           name : image_info.json
