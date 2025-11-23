@@ -13,6 +13,7 @@ env:
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
   MODEL_NAME: ${{ secrets.MODEL_NAME }}
   SAGEMAKER_ENDPOINT: ${{ secrets.SAGEMAKER_ENDPOINT }}
+  IMAGE_URI: ${{ env.IMAGE_URI }}
 
 jobs:
   deploy-job:
@@ -55,10 +56,8 @@ jobs:
               const json = JSON.parse(data);
               // Parse output 
               console.log('IMAGE_URI:', json.image_uri);
-              core.setOutput('IMAGE_URI', json.image_uri);
-
-      - name: Set IMAGE_URI env variable
-        run: echo "IMAGE_URI=${{ steps.extract_image.outputs.IMAGE_URI }}" >> $GITHUB_ENV
+              // Pass the variable to the next step
+              fs.appendFileSync(process.env.GITHUB_ENV, `IMAGE_URI=${json.image_uri}\n`);
 
       - name: Set up Python
         uses: actions/setup-python@v4
