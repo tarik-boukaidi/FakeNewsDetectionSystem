@@ -31,7 +31,7 @@ jobs:
               const artifact = await github.rest.actions.listWorkflowRunArtifacts({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
-                    run_id: context.runId
+                    run_id: context.payload.workflow_run.id
                   });
       
               const imageArtifact = artifact.data.artifacts.find(a => a.name === artifactName);
