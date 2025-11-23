@@ -13,11 +13,11 @@ class Cleaner:
     """
     def __init__(self,language:str="english",feature_name:str='joined_tokens',nltk_path='nltk_data'):
         # Download local dependecies
+        # getting the path of the running file's folder
         base_dir = os.path.dirname(os.path.abspath(__file__))
+        # Join the folder with nltk_folder 
         nltk_data_path = os.path.join(base_dir, nltk_path)
         npath.append(nltk_data_path)
-        print("NLTK paths:", npath)
-        print("Stopwords files exist?", os.path.exists(os.path.join(npath[-1], "corpora/stopwords")))
 
         # set the stopwords 
         self.stopwords = set(stopwords.words(language))

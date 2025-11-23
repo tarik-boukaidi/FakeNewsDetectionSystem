@@ -11,7 +11,7 @@ cleaner = Cleaner()
 
 # SageMaker entry functions
 def model_fn(model_dir):
-    model_path = os.path.join(model_dir, "model.joblib")
+    model_path = os.path.join(model_dir, "pipeline_model.joblib")
     model = joblib.load(model_path)
     return model
 
