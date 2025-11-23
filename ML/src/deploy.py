@@ -20,7 +20,7 @@ session = sagemaker.Session()
 # set the configuration of the container 
 sk_model = Model(
     image_uri=ecr_image, 
-    model_data=s3_model_path,
+    model_data=model_data,
     role=role,
     entry_point="inference.py",
     source_dir=source_dir,
