@@ -13,11 +13,11 @@ ENV PYTHONDONTWRITEBYTECODE=TRUE
 ENV PATH="/app:${PATH}"
 # Install dependencies
 RUN pip install --upgrade pip
-RUN pip install -r src/requirements.txt
+RUN pip install -r requirements.txt
 
 # SET the INFERENCE VARIABLE 
 ENV SAGEMAKER_PROGRAM=src/inference.py
 
 # Command to start Gunicorn server
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "src.inference:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "inference:app"]
 
