@@ -1,4 +1,4 @@
-name: Sage Maker Custom Container 
+name: Sage Maker Custom Container
 on:
   push:
     branches:
