@@ -13,12 +13,14 @@ ecr_image = os.getenv('IMAGE_URI')
 s3_model_path = os.getenv('MODEL_OUTPUT')
 model_data = os.path.join(s3_model_path,'pipeline_model.tar.gz')
 source_dir = "ML/src" 
+model_name = "fake-news-detector"
 
 # Create SageMaker session
 session = sagemaker.Session()
 
 # set the configuration of the container 
 sk_model = Model(
+    name=model_name,
     image_uri=ecr_image, 
     model_data=model_data,
     role=role,
