@@ -9,13 +9,15 @@ load_dotenv()
 # Load environment variables
 role = os.getenv('ROLE_ARN')
 endpoint = os.getenv('SAGEMAKER_ENDPOINT')
-ecr_image = os.getenv('IMAGE_URI')  # Custom container image
-source_dir = "ML/src"  # Your code folder
+ecr_image = os.getenv('IMAGE_URI')  
+s3_model_path = os.getenv('MODEL_OUTPUT')
+model_data = os.path.join(s3_model_path,'piepline_model.tar.gz')
+source_dir = "ML/src" 
 
 # Create SageMaker session
 session = sagemaker.Session()
 
-# Define a SageMaker Model using the custom container
+# set the configuration of the container 
 sk_model = Model(
     image_uri=ecr_image, 
     model_data=s3_model_path,

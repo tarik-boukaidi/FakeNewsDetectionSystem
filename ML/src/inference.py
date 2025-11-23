@@ -13,7 +13,7 @@ cleaner = Cleaner()
 S3_BUCKET = os.environ.get("MODEL_BUCKET")
 S3_KEY = os.environ.get("MODEL_KEY")
 LOCAL_MODEL_DIR = "/tmp/model"
-LOCAL_MODEL_ARCHIVE = os.path.join("/tmp", "pipeline_model.tar.gz")
+LOCAL_MODEL_ARCHIVE = os.path.join("/tmp",S3_KEY)
 
 # Download the model from S3 if not already present
 if not os.path.exists(LOCAL_MODEL_ARCHIVE):
