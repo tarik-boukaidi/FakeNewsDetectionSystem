@@ -8,12 +8,10 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+# For OCID authorization 
     permissions:
       id-token: write
       contents: read
-
-    outputs:
-      image_uri: ${{ steps.set-image-uri.outputs.IMAGE_URI }}
 
     steps:
       - name: Checkout repository
@@ -38,13 +36,16 @@ jobs:
           echo "Building Docker image: $IMAGE_URI"
           docker build -t $IMAGE_URI -f ML/src/Dockerfile .
 
-          # Set environment variable for this workflow
+          # Set environment variable for this w
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
-          # Also set as step output to pass to job output
-          echo "::set-output name=IMAGE_URI::$IMAGE_URI"
-
-        id: set-image-uri
+      - name : Save the image url artifact 
+        run :
+          echo "{\"image_uri\":\"$IMAGE_URI\"}" >> image.json
+        uses : actions/upload-artifact@v4
+        with : 
+          name : image_info.json
+          path : image.json
 
       - name: Push Docker image
         run: docker push $IMAGE_URI

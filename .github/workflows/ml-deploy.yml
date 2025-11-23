@@ -21,10 +21,45 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set IMAGE_URI from previous workflow
-        run: |
-          IMAGE_URI="${{ github.event.workflow_run.outputs.image_uri }}"
-          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+      - name: Read image URI from artifact
+        uses: actions/github-script@v7
+        with:
+          script: |
+              const fs = require('fs');
+              const path = require('path');
+              const artifactName = 'image_info.json';
+              const artifact = await github.rest.actions.listWorkflowRunArtifacts({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    run_id: context.runId
+                  });
+      
+              const imageArtifact = artifact.data.artifacts.find(a => a.name === artifactName);
+              console.log('Found artifact:', imageArtifact.name);
+              // Download the artifact (returns a zip)
+              const download = await github.rest.actions.downloadArtifact({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    artifact_id: imageArtifact.id,
+                    archive_format: 'zip'
+                  });
+              // Save zip to disk
+              const buffer = Buffer.from(download.data, 'base64');
+              const zipPath = path.join(process.cwd(), 'artifact.zip');
+              fs.writeFileSync(zipPath, buffer);
+              // Unzip and read JSON
+              const AdmZip = require('adm-zip');
+              const zip = new AdmZip(zipPath);
+              zip.extractAllTo('./artifact', true);
+              const jsonPath = path.join('./artifact', 'image.json');
+              const data = fs.readFileSync(jsonPath, 'utf8');
+              const json = JSON.parse(data);
+              // Parse output 
+              console.log('IMAGE_URI:', json.image_uri);
+              core.setOutput('IMAGE_URI', json.image_uri);
+
+      - name: Set IMAGE_URI env variable
+        run: echo "IMAGE_URI=${{ steps.extract_image.outputs.IMAGE_URI }}" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -37,4 +72,5 @@ jobs:
 
       - name: Deploy model
         run: |
+          echo "Using IMAGE_URI=$IMAGE_URI"
           python ML/src/deploy.py
