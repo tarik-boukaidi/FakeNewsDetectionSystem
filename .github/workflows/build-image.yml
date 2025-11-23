@@ -6,7 +6,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
       - name: checkout the repo 
         uses: actions/checkout@v3
@@ -24,7 +23,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          export IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/my-sagemaker-image:latest"
+          IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/fake-news-image:latest"
           docker build -t $IMAGE_URI -f ML/src/Dockerfile .
           echo "{ \"image_uri\": \"$IMAGE_URI\" }" > image-info.json
 
