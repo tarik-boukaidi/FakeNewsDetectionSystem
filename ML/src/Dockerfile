@@ -6,7 +6,7 @@ WORKDIR /app
 
 
 # Copy source code
-COPY . /app/src/
+COPY COPY ML/src/ /app/src/
 # Set sagemaker environment variables
 ENV PYTHONUNBUFFERED=TRUE
 ENV PYTHONDONTWRITEBYTECODE=TRUE
