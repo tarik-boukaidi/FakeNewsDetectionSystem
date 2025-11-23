@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@
         
       - name: Download image artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: image-info
 
@@ -33,7 +33,7 @@ jobs:
           IMAGE_URI=$(jq -r '.image_uri' image-info.json)
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
-          
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
