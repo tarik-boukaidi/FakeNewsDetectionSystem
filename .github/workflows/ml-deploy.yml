@@ -1,6 +1,6 @@
 name: SageMaker Deployment
 on:
- workflow_run:
+  workflow_run:
     workflows: ["Sage Maker Custom Container"]
     types:
       - completed
@@ -11,9 +11,8 @@ env:
   MODEL_OUTPUT: ${{ secrets.MODEL_OUTPUT }}
   ROLE_ARN: ${{ secrets.ROLE_ARN }}
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-  MODEL_NAME: ${{secrets.MODEL_NAME}}
+  MODEL_NAME: ${{ secrets.MODEL_NAME }}
   SAGEMAKER_ENDPOINT: ${{ secrets.SAGEMAKER_ENDPOINT }}
-
 
 jobs:
   deploy-job:
@@ -21,19 +20,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
-      - name: Download image artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: image-info
-          run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Read IMAGE_URI from artifact
-        id: load-image
+      - name: Set IMAGE_URI from previous workflow
         run: |
-          IMAGE_URI=$(jq -r '.image_uri' image-info.json)
+          IMAGE_URI="${{ github.event.workflow_run.outputs.image_uri }}"
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
-
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -42,7 +33,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install  "sagemaker>=2.0.0,<3.0.0" dotenv boto3
+          pip install "sagemaker>=2.0.0,<3.0.0" dotenv boto3
 
       - name: Deploy model
         run: |

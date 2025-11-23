@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -10,37 +11,40 @@ jobs:
     permissions:
       id-token: write
       contents: read
+
+    outputs:
+      image_uri: ${{ steps.set-image-uri.outputs.IMAGE_URI }}
+
     steps:
-      - name: checkout the repo 
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: aws credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          aws-region : ${{ secrets.AWS_DEFAULT_REGION }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
           role-to-assume: ${{ secrets.ROLE_ARN }}
+
       - name: Debug IAM user
         run: aws sts get-caller-identity
 
-      - name: login to acr
+      - name: Login to ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build Docker image
         run: |
           IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO_NAME }}:latest"
-          echo $IMAGE_URI
+          echo "Building Docker image: $IMAGE_URI"
           docker build -t $IMAGE_URI -f ML/src/Dockerfile .
 
+          # Set environment variable for this workflow
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
-          echo "{ \"image_uri\": \"$IMAGE_URI\" }" > image-info.json
+          # Also set as step output to pass to job output
+          echo "::set-output name=IMAGE_URI::$IMAGE_URI"
 
-      - name: Push image
+        id: set-image-uri
+
+      - name: Push Docker image
         run: docker push $IMAGE_URI
-
-      - name: Upload artifact for deploy job
-        uses: actions/upload-artifact@v4
-        with:
-          name: image-info
-          path: image-info.json
