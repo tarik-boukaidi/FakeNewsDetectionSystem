@@ -1,0 +1,38 @@
+name: Sage Maker Custom Container 
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout the repo 
+        uses: actions/checkout@v3
+
+      - name: aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region : ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: login to acr
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Docker image
+        run: |
+          IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/my-sagemaker-image:latest"
+          docker build -t $IMAGE_URI -f ML/src/Dockerfile .
+          echo "{ \"image_uri\": \"$IMAGE_URI\" }" > image-info.json
+
+      - name: Push image
+        run: docker push $IMAGE_URI
+
+      - name: Upload artifact for deploy job
+        uses: actions/upload-artifact@v3
+        with:
+          name: image-info
+          path: image-info.json

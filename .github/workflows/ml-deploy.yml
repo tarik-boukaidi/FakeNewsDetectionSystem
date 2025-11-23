@@ -1,9 +1,10 @@
 name: SageMaker Deployment
-
 on:
-  push:
-    branches:
-      - master
+ workflow_run:
+    workflows: ["Sage Maker Custom Container"]
+    types:
+      - completed
+
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -19,8 +20,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@
+        
+      - name: Download image artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: image-info
 
+      - name: Read IMAGE_URI from artifact
+        id: load-image
+        run: |
+          IMAGE_URI=$(jq -r '.image_uri' image-info.json)
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+
+          
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -28,7 +41,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install  "sagemaker>=2.0.0,<3.0.0" pandas scikit-learn joblib contractions nltk dotenv
+          pip install  "sagemaker>=2.0.0,<3.0.0" dotenv boto3
 
       - name: Deploy model
         run: |

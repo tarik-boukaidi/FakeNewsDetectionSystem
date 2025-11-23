@@ -1,38 +1,44 @@
-from sagemaker.sklearn.model import SKLearnModel
-import sagemaker
 import os
 from dotenv import load_dotenv
+import sagemaker
+from sagemaker.model import Model
 from sagemaker.serverless.serverless_inference_config import ServerlessInferenceConfig
 
 load_dotenv()
-# load the env variables 
+
+# Load environment variables
 role = os.getenv('ROLE_ARN')
 endpoint = os.getenv('SAGEMAKER_ENDPOINT')
-s3_model_path = os.path.join(os.getenv('MODEL_OUTPUT'),'pipeline_model.tar.gz')
-source_dir = "ML/src"  
+ecr_image = os.getenv('IMAGE_URI')  # Custom container image
+source_dir = "ML/src"  # Your code folder
 
-# Create a SageMaker session
+# Create SageMaker session
 session = sagemaker.Session()
 
-# Create the KLearnModel
-sk_model = SKLearnModel(
+# Define a SageMaker Model using the custom container
+sk_model = Model(
+    image_uri=ecr_image, 
     model_data=s3_model_path,
     role=role,
-    entry_point="inference.py",  
+    entry_point="inference.py",
     source_dir=source_dir,
-    framework_version="1.2-1",
-    py_version="py3",
-    dependencies=[os.path.join(source_dir,'requirements.txt')]
+    env={
+        "MODEL_BUCKET": s3_model_path,
+        "MODEL_KEY": 'pipeline_model.tar.gz'
+    },
+    sagemaker_session=session
 )
-# Set the serverless config 
-serverless_config  = ServerlessInferenceConfig(
-        memory_size_in_mb=2048,
-        max_concurrency=5
-    )
-# Deploy serverless endpoint
+
+# Configure serverless inference
+serverless_config = ServerlessInferenceConfig(
+    memory_size_in_mb=2048,
+    max_concurrency=5
+)
+
+# Deploy the model
 predictor = sk_model.deploy(
     endpoint_name=endpoint,
     serverless_inference_config=serverless_config
 )
 
-print(f"Model deployed")
+print(f"Model deployed at endpoint: {endpoint}")
