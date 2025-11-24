@@ -1,8 +1,5 @@
 import os
-import json
 import joblib
-import tarfile
-import boto3
 from flask import Flask, request, jsonify
 from cleaner import Cleaner
 
@@ -24,6 +21,7 @@ def invoke():
         return jsonify({"error": f"Unsupported content type: {request.content_type}"}), 400
 
     input_data = request.get_json()
-    df = cleaner.transform(input_data['text'])
-    preds = model.predict(df)
-    return jsonify({"predictions": preds.tolist()})
+    text= cleaner.transform(input_data['text'])
+    preds = model.predict(text)[0]
+    confidence_scoe = model.predict_proba(text).max()
+    return jsonify({"predictions": preds,"confidence_score":confidence_scoe})

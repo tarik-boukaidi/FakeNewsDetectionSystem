@@ -9,8 +9,8 @@
   },
   "rf": {
     "n_estimators": 200,
-    "max_depth": 30,
-    "class_weight": "balanced_subsample",
+    "max_depth": null,
+    "class_weight": "balanced",
     "max_features": "sqrt"
   }
 }

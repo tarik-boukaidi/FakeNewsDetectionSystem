@@ -46,8 +46,6 @@ class Cleaner:
         text = re.sub(r'[.,!?;:]', ' ', text)
         # digits 
         text = re.sub(r'\d+', '', text)
-        # Quotes 
-        text = re.sub(r"[\"\'\u2018\u2019\u201C\u201D]", '', text)
         return text
     
     def expand_contraction(self,text):
@@ -64,22 +62,30 @@ class Cleaner:
     
     def join_token(self,tokens):
         return ' '.join(tokens)
-    
-    def to_df(self,text):
-        return pd.DataFrame([text],columns=[self.feature_name])
+
     
     def remove_u(self,tokens):
         return [word.strip() for word in tokens if word.strip() != 'u']
+    
+    def remove_quotes(self,text):
+        return re.sub(r"[\"\'\u2018\u2019\u201C\u201D]", '', text)
+    def remove_noise_list(self,tokens):
+        cleaned = []
+        for text in tokens:
+            text = text.replace('-', '').replace('$', '').replace('(','').replace(')','')
+            if text:
+                cleaned.append(text)
+        return cleaned
     
 
     def transform(self,text):
         text = self.remove_garbage(text)
         text = self.expand_contraction(text)
+        text = self.remove_quotes(text)
         tokens =self.tokenize(text)
         tokens = self.remove_stopwords(tokens)
         tokens = self.lemmatize(tokens)
         tokens = self.remove_u(tokens)
+        tokens = self.remove_noise_list(tokens)
         text = self.join_token(tokens)
-        df = self.to_df(text)
-        return df
-
+        return [text]
