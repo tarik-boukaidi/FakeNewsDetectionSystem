@@ -15,8 +15,8 @@ ENV PATH="/app:${PATH}"
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# SET the INFERENCE VARIABLE 
-ENV SAGEMAKER_PROGRAM=src/inference.py
+# EXPOSE required port
+EXPOSE 8080
 
 # Command to start Gunicorn server
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "inference:app"]
