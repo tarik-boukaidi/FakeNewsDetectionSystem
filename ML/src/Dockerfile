@@ -3,7 +3,12 @@ FROM python:3.13-slim
 
 # Set working directory
 WORKDIR /app
+# Telling Sage Maker that this Container build by me so it won't look for serve executable
+LABEL com.amazonaws.sagemaker.capabilities.accept-bindto-port=true
+# set this for serverless deployement
+LABEL com.amazonaws.sagemaker.capabilities.multi-models=false
 
+ENV SAGEMAKER_SERVE_PORT=8080
 
 # Copy source code
 COPY ML/src/ /app/
