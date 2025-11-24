@@ -14,7 +14,6 @@ MODEL_NAME = os.getenv('MODEL_NAME')
 model_path = os.path.join("/opt/ml/model",MODEL_NAME)
 model = joblib.load(model_path)
 
-
 @app.route("/ping", methods=["GET"])
 def ping():
     return "pong", 200
