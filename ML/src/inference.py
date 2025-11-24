@@ -12,8 +12,13 @@ cleaner = Cleaner()
 # S3 bucket and key (can also use environment variables)
 S3_BUCKET = os.environ.get("MODEL_BUCKET")
 S3_KEY = os.environ.get("MODEL_KEY")
+# Set the model path
 LOCAL_MODEL_DIR = "/tmp/model"
+# Set the arctifact name of the model
 LOCAL_MODEL_ARCHIVE = os.path.join("/tmp",S3_KEY)
+
+# Ensure the directory exists otherwise create it 
+os.makedirs(LOCAL_MODEL_DIR)
 
 # Download the model from S3 if not already present
 if not os.path.exists(LOCAL_MODEL_ARCHIVE):
