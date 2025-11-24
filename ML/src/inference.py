@@ -18,7 +18,7 @@ LOCAL_MODEL_DIR = "/tmp/model"
 LOCAL_MODEL_ARCHIVE = os.path.join("/tmp",S3_KEY)
 
 # Ensure the directory exists otherwise create it 
-os.makedirs(LOCAL_MODEL_DIR)
+os.makedirs(LOCAL_MODEL_DIR,exist_ok=True)
 
 # Download the model from S3 if not already present
 if not os.path.exists(LOCAL_MODEL_ARCHIVE):
