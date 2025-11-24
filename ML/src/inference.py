@@ -34,7 +34,7 @@ if not os.path.exists(LOCAL_MODEL_DIR):
 # Load model once at startup
 model = None
 
-@app.before_first_request
+@app.before_request
 def load_model():
     global model
     model_file_path = os.path.join(LOCAL_MODEL_DIR, "pipeline_model.joblib")
