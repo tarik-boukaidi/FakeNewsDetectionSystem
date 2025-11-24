@@ -22,6 +22,6 @@ def invoke():
 
     input_data = request.get_json()
     text= cleaner.transform(input_data['text'])
-    preds = model.predict(text)[0]
-    confidence_scoe = model.predict_proba(text).max()
+    preds = int(model.predict(text)[0])
+    confidence_scoe = float(model.predict_proba(text).max())
     return jsonify({"predictions": preds,"confidence_score":confidence_scoe})
