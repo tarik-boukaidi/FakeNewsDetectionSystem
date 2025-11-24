@@ -11,8 +11,6 @@ role = os.getenv('ROLE_ARN')
 endpoint = os.getenv('SAGEMAKER_ENDPOINT')
 ecr_image = os.getenv('IMAGE_URI')  
 s3_model_path = os.getenv('MODEL_OUTPUT')
-_,_,S3_BUCKET,S3_MODEL,_ = s3_model_path.split('/')
-S3_KEY =  os.path.join(S3_MODEL,'pipeline_model.tar.gz')
 model_data = os.path.join(s3_model_path.rstrip('/'),'pipeline_model.tar.gz')
 source_dir = "ML/src" 
 model_name = "fake-news-detector"
@@ -29,8 +27,7 @@ sk_model = Model(
     entry_point="inference.py",
     source_dir=source_dir,
     env={
-        "MODEL_BUCKET": S3_BUCKET,
-        "MODEL_KEY": S3_KEY
+        "MODEL_NAME":"pipeline_model.joblib"
     },
     sagemaker_session=session
 )

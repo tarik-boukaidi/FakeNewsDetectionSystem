@@ -9,39 +9,11 @@ from cleaner import Cleaner
 app = Flask(__name__)
 cleaner = Cleaner()
 
-# S3 bucket and key (can also use environment variables)
-S3_BUCKET = os.environ.get("MODEL_BUCKET")
-S3_KEY = os.environ.get("MODEL_KEY")
-# Set the model path
-LOCAL_MODEL_DIR = "/tmp/model"
-# Set the arctifact name of the model
-LOCAL_MODEL_ARCHIVE = os.path.join("/tmp",S3_KEY)
+# Load the model once at startup
+MODEL_NAME = os.getenv('MODEL_NAME')
+model_path = os.path.join("/opt/ml/model",MODEL_NAME)
+model = joblib.load(model_path)
 
-# Ensure the directory exists otherwise create it 
-os.makedirs(LOCAL_MODEL_DIR,exist_ok=True)
-
-# Download the model from S3 if not already present
-if not os.path.exists(LOCAL_MODEL_ARCHIVE):
-    s3 = boto3.client("s3")
-    s3.download_file(S3_BUCKET, S3_KEY, LOCAL_MODEL_ARCHIVE)
-
-# Extract tar.gz if not already extracted
-if not os.path.exists(LOCAL_MODEL_DIR):
-    os.makedirs(LOCAL_MODEL_DIR, exist_ok=True)
-    with tarfile.open(LOCAL_MODEL_ARCHIVE, "r:gz") as tar:
-        tar.extractall(path=LOCAL_MODEL_DIR)
-
-# Load model once at startup
-model = None
-
-@app.before_request
-def load_model():
-    global model
-    model_file_path = os.path.join(LOCAL_MODEL_DIR, "pipeline_model.joblib")
-    if os.path.exists(model_file_path):
-        model = joblib.load(model_file_path)
-    else:
-        raise FileNotFoundError(f"Model file not found at {model_file_path}")
 
 @app.route("/ping", methods=["GET"])
 def ping():
