@@ -8,6 +8,7 @@ import LoadingIcon from '../../assets/Double Ring@1x-1.0s-734px-734px.gif'
 import './AnalysisPage.css';
 
 const AnalysisPage: React.FC = () => {
+  // Setting the API VARAIABLE
   const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate(); 
   const content  = useRef<HTMLTextAreaElement>(null);
