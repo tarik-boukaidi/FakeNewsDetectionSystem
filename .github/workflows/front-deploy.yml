@@ -37,4 +37,4 @@ jobs:
 
       - name: Sync build folder to S3
         run: |
-          aws s3 sync ./frontend/fake-news-detector-vite/build s3://${{secret.FRONT_END_BUCKET}} --delete
+          aws s3 sync ./frontend/fake-news-detector-vite/build s3://${{secrets.FRONT_END_BUCKET}} --delete
