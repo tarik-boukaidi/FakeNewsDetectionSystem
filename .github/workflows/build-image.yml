@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "ML/src/**"
 
 jobs:
   build-and-push:
