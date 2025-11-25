@@ -1,17 +1,20 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useMotionValue } from 'framer-motion'; 
+import { useMotionValue } from 'framer-motion'; 
 import Header from '../../components/Header/Header';
 import Modal from '../../components/Modal/Modal';
 import CheckIcon from '../../components/CheckIcon/CheckIcon';
+import LoadingIcon from '../../assets/Double Ring@1x-1.0s-734px-734px.gif'
 import './AnalysisPage.css';
 
 const AnalysisPage: React.FC = () => {
-  const navigate = useNavigate(); // Initialisation de useNavigate
+  const API_URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate(); 
   const content  = useRef<HTMLTextAreaElement>(null);
   const [open,setOpen]  = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleBackClick = () => {
-    navigate('/'); // Naviguer vers la page d'accueil
+    navigate('/'); 
   };
   let progress = useMotionValue(100);
 
@@ -20,8 +23,35 @@ const AnalysisPage: React.FC = () => {
   }
   const [confidenceScore,setConfidenceScore] = useState(0);
 
-  const [prediction, setPrediction] = useState<string | null>(null);
+  const [prediction, setPrediction] = useState<number | null>(null);
 
+const makePrediction = () => {
+  setLoading(true);
+  fetch(API_URL + "/predictions", {
+    method: "POST", 
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: content.current?.value,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not OK " + response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data.predictions);
+      setPrediction(data.predictions); 
+      setConfidenceScore(data.confidence_score);
+      setOpen(true); 
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+    }).finally(()=> setLoading(false));
+};
   return (
     <>
     <Header/>
@@ -33,13 +63,7 @@ const AnalysisPage: React.FC = () => {
         <div className="analysis-buttons">
           <button 
   className="analyze-button"
-  onClick={() => {
-    const result = simulatePrediction(content.current?.value || "");
-    setPrediction(result.prediction);
-    setConfidenceScore(result.confidence);
-    setOpen(true);
-  }}
->Analyser</button>
+  onClick={makePrediction}>Analyser</button>
 <Modal isOpen={open} onClose={() => setOpen(false)}>
   <div
     style={{
@@ -51,12 +75,12 @@ const AnalysisPage: React.FC = () => {
   >
     <CheckIcon
       progress={progress}
-      status={prediction === "Real" ? "real" : "fake"}
+      status={prediction === 1 ? "real" : "fake"}
     />
     <p
       style={{
         background:
-          prediction === "Real"
+          (prediction === 1)
             ? "linear-gradient(to right, #4caf50, #66bb6a, #81c784)"
             : "linear-gradient(to right, #ff4444, #ff6666, #ff8888)",
         WebkitBackgroundClip: "text",
@@ -65,9 +89,14 @@ const AnalysisPage: React.FC = () => {
         fontWeight: "bold",
       }}
     >
-      La nouvelle est : {prediction === "Real" ? "Vraie" : "Fausse"}
+      La nouvelle est : {prediction === 1 ? "Vraie" : "Fausse"}
     </p>
-    <p>Confidence Score: {confidenceScore}%</p>
+    <p style={{ backgroundColor : (prediction === 1 ) ? "#66bb6a" : "#ff4444",
+      padding: "10px",
+      color: "#eee",
+      borderRadius:"40px",
+      fontWeight: "900"
+    }}>Confidence Score: {confidenceScore * 100}%</p>
   </div>
 </Modal>
 
@@ -80,9 +109,9 @@ const AnalysisPage: React.FC = () => {
         <h2>Résultat de l'analyse</h2>
         <p>Copier le résultat</p>
         <div className="progress-bar-container">
-          <div className="progress-bar" style={{ width:  `${confidenceScore}%` }}></div> 
+          <div className="progress-bar" style={{ width:  `${(confidenceScore * 100)}%` ,backgroundColor: (prediction === 1 ) ? "#66bb6a" : "#ff4444"}}></div> 
         </div>
-        <p>Confidence Score: {confidenceScore} %</p>
+        <p>Confidence Score: {confidenceScore * 100} %</p>
       </div>
 
       <div className="history-section">
@@ -111,18 +140,15 @@ const AnalysisPage: React.FC = () => {
         </div>
       </div>
     </div>
+    {loading && (
+  <div className="loading-overlay">
+    <div className="loading-bg"></div>
+    <img src={LoadingIcon} alt="Loading..." className="loading-gif"  width="198px" height="198px"/>
+  </div>
+)}
+
     </>
   );
 };
 
-
-function simulatePrediction(text: string) {
-  const isFake = Math.random() > 0.5; // randomly fake or real
-  const confidence = Math.floor(Math.random() * 50) + 50; // 50–100%
-
-  return {
-    prediction: isFake ? "Fake" : "Real",
-    confidence
-  };
-}
 export default AnalysisPage;

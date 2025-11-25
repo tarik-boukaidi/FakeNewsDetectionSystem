@@ -1,6 +1,7 @@
 import React from 'react';
 import './AboutPage.css';
 import Header from '../../components/Header/Header';
+import { FaGithub } from 'react-icons/fa';
 
 const AboutPage: React.FC = () => {
   return (
@@ -25,10 +26,23 @@ const AboutPage: React.FC = () => {
         <p>Le modèle final sera entraîné sur un vaste ensemble de données d'articles de presse vérifiés et non-vérifiés, couvrant une large gamme de sujets. Plus de détails seront fournis lors de l'intégration de l'API réelle.</p>
       </section>
 
-      <section className="about-section">
-        <h2>L'équipe</h2>
-        <p>Ce projet est développé par MENOUAR CHAIMA, AMINE ES-SAOUIQUI et TARIK BOUKAIDI.</p>
-      </section>
+<section className="about-section">
+  <h2>L'équipe</h2>
+  <p>
+    Ce projet est développé par : <br/>
+    <div className='links'>
+          <a href="https://github.com/chamai1" target="_blank" rel="noopener noreferrer"><span className='github-icon'><FaGithub /></span>
+      MENOUAR CHAIMA 
+    </a>
+    <a href="https://github.com/ae-saouiqui" target="_blank" rel="noopener noreferrer"><span className='github-icon'><FaGithub /></span>
+      AMINE ES-SAOUIQUI
+    </a>
+    <a href="https://github.com/tarik-boukaidi" target="_blank" rel="noopener noreferrer"><span className='github-icon'><FaGithub /></span>
+      TARIK BOUKAIDI 
+    </a>
+    </div>
+  </p>
+</section>
     </div>
     </>
   );

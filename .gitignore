@@ -1,3 +1,5 @@
 .gitattributes
 ML/Datasets/clean_politifact_train_dataset.csv
 frontend/package-lock.json
+ML/Models/pipeline_model.joblib
+frontend/fake-news-detector-vite/.env.local
