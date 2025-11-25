@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend/fake-news-detector-vite
-        run: npm install
+        run: npm install --force
 
       - name: Build React app
         working-directory: ./frontend/fake-news-detector-vite
