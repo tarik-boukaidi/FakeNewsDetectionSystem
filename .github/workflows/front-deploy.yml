@@ -26,10 +26,11 @@ jobs:
           cd frontend/fake-news-detector-vite 
           npm install --legacy-peer-deps
           npm run build
+          ls .
 
 
       - name : Check Build folder
-        run: ls frontend/fake-news-detector-vite/build  
+        run: ls frontend/fake-news-detector-vite/
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
