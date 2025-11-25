@@ -22,15 +22,9 @@ jobs:
 
       - name: Install dependencies and Build App
         run: |
-          ls .
           cd frontend/fake-news-detector-vite 
           npm install --legacy-peer-deps
           npm run build
-          ls .
-
-
-      - name : Check Build folder
-        run: ls frontend/fake-news-detector-vite/
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -41,4 +35,4 @@ jobs:
 
       - name: Sync build folder to S3
         run: |
-          aws s3 sync frontend/fake-news-detector-vite/build s3://${{ secrets.FRONT_END_BUCKET }}  --delete
+          aws s3 sync frontend/fake-news-detector-vite/dist s3://${{ secrets.FRONT_END_BUCKET }}  --delete
