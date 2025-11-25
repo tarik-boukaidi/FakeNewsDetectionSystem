@@ -20,18 +20,16 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: Install dependencies
+      - name: Install dependencies and Build App
         run: |
           ls .
           cd frontend/fake-news-detector-vite 
           npm install --legacy-peer-deps
+          npm run build
+
 
       - name : Check Build folder
         run: ls frontend/fake-news-detector-vite/build  
-      - name: Build React app
-        run: |
-         cd frontend/fake-news-detector-vite 
-         npm run build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
